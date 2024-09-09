@@ -9,20 +9,17 @@ import (
 	"strings"
 
 	"github.com/maclovin/jizzjazz/pkg/ascii"
-	"github.com/maclovin/jizzjazz/pkg/ascii85"
-	"github.com/maclovin/jizzjazz/pkg/atbash"
 	"github.com/maclovin/jizzjazz/pkg/b64"
 	"github.com/maclovin/jizzjazz/pkg/binary"
 	"github.com/maclovin/jizzjazz/pkg/gzip"
 	"github.com/maclovin/jizzjazz/pkg/hex"
 	"github.com/maclovin/jizzjazz/pkg/html"
-	"github.com/maclovin/jizzjazz/pkg/ipv6"
 	"github.com/maclovin/jizzjazz/pkg/octal"
 	"github.com/maclovin/jizzjazz/pkg/url"
 )
 
 func main() {
-	method := flag.String("m", "", "Method of decoding: HTML, ASCII, ASCII85, HEX, Binary, URL, Octal, Base64, GZIP")
+	method := flag.String("m", "", "Method of decoding: HTML, ASCII, HEX, Binary, URL, Octal, Base64, GZIP")
 	indexRange := flag.String("i", "", "Index range for decoding, e.g., 2:5, :3, 4:")
 
 	flag.Parse()
@@ -87,12 +84,6 @@ func decode(input, method string) string {
 		return jjB64.Decode(input)
 	case "gzip":
 		return jjGzip.Decode(input)
-	case "ascii85":
-		return jjAscii85.Decode(input)
-	case "atbash":
-		return jjAtbash.Decode(input)
-	case "ipv6":
-		return jjIPv6.Decode(input)
 	default:
 		return input
 	}

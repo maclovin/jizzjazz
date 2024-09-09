@@ -14,7 +14,6 @@ import (
 	"github.com/maclovin/jizzjazz/pkg/gzip"
 	"github.com/maclovin/jizzjazz/pkg/hex"
 	"github.com/maclovin/jizzjazz/pkg/html"
-	"github.com/maclovin/jizzjazz/pkg/ipv6"
 	"github.com/maclovin/jizzjazz/pkg/md5"
 	"github.com/maclovin/jizzjazz/pkg/octal"
 	"github.com/maclovin/jizzjazz/pkg/sha256"
@@ -91,8 +90,6 @@ func encode(input, method string) string {
 		return jjMd5.Encode(input)
 	case "sha256":
 		return jjSha256.Encode(input)
-	case "ipv6":
-		return jjIPv6.Encode(input)
 	default:
 		return input
 	}
