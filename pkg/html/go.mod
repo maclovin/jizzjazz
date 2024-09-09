@@ -1,3 +1,3 @@
-module github.com/maclovin/jizzjiazz/html
+module github.com/maclovin/jizzjiazz/pkg/html
 
 go 1.22.4

@@ -1,3 +1,3 @@
-module github.com/maclovin/jizzjiazz/reverse
+module github.com/maclovin/jizzjiazz/pkg/reverse
 
 go 1.22.4

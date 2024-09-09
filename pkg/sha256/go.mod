@@ -1,3 +1,3 @@
-module github.com/maclovin/jizzjiazz/sha256
+module github.com/maclovin/jizzjiazz/pkg/sha256
 
 go 1.22.4

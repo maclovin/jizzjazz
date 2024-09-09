@@ -1,3 +1,3 @@
-module github.com/maclovin/jizzjiazz/ascii
+module github.com/maclovin/jizzjiazz/pkg/ascii
 
 go 1.22.4

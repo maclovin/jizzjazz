@@ -1,3 +1,3 @@
-module github.com/maclovin/jizzjiazz/rot13
+module github.com/maclovin/jizzjiazz/pkg/rot13
 
 go 1.22.4
