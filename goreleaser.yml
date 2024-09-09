@@ -4,7 +4,7 @@ before:
 
 builds:
   - id: jizz
-    main: ./cmd/jizz/*.go
+    main: ./cmd/jizz/main.go
     binary: jizz
     env:
       - CGO_ENABLED=0
@@ -17,7 +17,7 @@ builds:
       - arm64
   
   - id: jazz
-    main: ./cmd/jazz/
+    main: ./cmd/jazz/main.go
     binary: jazz
     env:
       - CGO_ENABLED=0
@@ -31,6 +31,9 @@ builds:
 
 archives:
   - format: tar.gz
+    builds:
+      - jizz
+      - jazz
     name_template: >-
       {{ .ProjectName }}_
       {{- title .Os }}_
