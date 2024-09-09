@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BASE_PATH="github.com/maclovin/jizzjiazz"
+BASE_PATH="github.com/maclovin/jizzjiazz/pkg"
 PKG_DIR="../pkg"
 
 for dir in "$PKG_DIR"/*/; do

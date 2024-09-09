@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/maclovin/jizzjazz/pkg/ascii"
-	"github.com/maclovin/jizzjazz/pkg/base64"
+	"github.com/maclovin/jizzjazz/pkg/b64"
 	"github.com/maclovin/jizzjazz/pkg/binary"
 	"github.com/maclovin/jizzjazz/pkg/gzip"
 	"github.com/maclovin/jizzjazz/pkg/hex"
@@ -69,21 +69,21 @@ func processInputByRange(input, indexRange, method string) (string, error) {
 func decode(input, method string) string {
 	switch strings.ToLower(method) {
 	case "html":
-		return html.Decode(input)
+		return jjHtml.Decode(input)
 	case "ascii":
-		return ascii.Decode(input)
+		return jjAscii.Decode(input)
 	case "hex":
-		return hex.Decode(input)
+		return jjHex.Decode(input)
 	case "binary":
-		return binary.Decode(input)
+		return jjBinary.Decode(input)
 	case "url":
-		return url.Decode(input)
+		return jjUrl.Decode(input)
 	case "octal":
-		return octal.Decode(input)
+		return jjOctal.Decode(input)
 	case "base64":
-		return base64.Decode(input)
+		return jjB64.Decode(input)
 	case "gzip":
-		return gzip.Decode(input)
+		return jjGzip.Decode(input)
 	default:
 		return input
 	}

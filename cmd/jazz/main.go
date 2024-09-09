@@ -9,11 +9,14 @@ import (
 	"strings"
 
 	"github.com/maclovin/jizzjazz/pkg/ascii"
+	"github.com/maclovin/jizzjazz/pkg/b64"
 	"github.com/maclovin/jizzjazz/pkg/binary"
 	"github.com/maclovin/jizzjazz/pkg/gzip"
 	"github.com/maclovin/jizzjazz/pkg/hex"
 	"github.com/maclovin/jizzjazz/pkg/html"
+	"github.com/maclovin/jizzjazz/pkg/md5"
 	"github.com/maclovin/jizzjazz/pkg/octal"
+	"github.com/maclovin/jizzjazz/pkg/sha256"
 	"github.com/maclovin/jizzjazz/pkg/url"
 )
 
@@ -59,7 +62,7 @@ func processInputByRange(input, indexRange, method string) (string, error) {
 	}
 
 	if start > end || start < 0 || end > len(input) {
-		return "", fmt.Errorf("Invalid index range")
+		return "", fmt.Errorf("invalid index range")
 	}
 
 	return input[:start] + encode(input[start:end], method) + input[end:], nil
@@ -68,25 +71,25 @@ func processInputByRange(input, indexRange, method string) (string, error) {
 func encode(input, method string) string {
 	switch strings.ToLower(method) {
 	case "html":
-		return html.Encode(input)
+		return jjHtml.Encode(input)
 	case "ascii":
-		return ascii.Encode(input)
+		return jjAscii.Encode(input)
 	case "hex":
-		return hex.Encode(input)
+		return jjHex.Encode(input)
 	case "binary":
-		return binary.Encode(input)
+		return jjBinary.Encode(input)
 	case "url":
-		return url.Encode(input)
+		return jjUrl.Encode(input)
 	case "octal":
-		return octal.Encode(input)
+		return jjOctal.Encode(input)
 	case "base64":
-		return base64.Encode(input)
+		return jjB64.Encode(input)
 	case "gzip":
-		return gzip.Encode(input)
+		return jjGzip.Encode(input)
 	case "md5":
-		return md5.Encode(input)
+		return jjMd5.Encode(input)
 	case "sha256":
-		return sha256.Encode(input)
+		return jjSha256.Encode(input)
 	default:
 		return input
 	}
