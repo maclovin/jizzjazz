@@ -8,24 +8,37 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/maclovin/jizzjazz/cmd/shared"
 	"github.com/maclovin/jizzjazz/pkg/ascii"
+	"github.com/maclovin/jizzjazz/pkg/ascii85"
+	"github.com/maclovin/jizzjazz/pkg/atbash"
+	"github.com/maclovin/jizzjazz/pkg/b32"
+	"github.com/maclovin/jizzjazz/pkg/b45"
 	"github.com/maclovin/jizzjazz/pkg/b64"
 	"github.com/maclovin/jizzjazz/pkg/binary"
 	"github.com/maclovin/jizzjazz/pkg/gzip"
 	"github.com/maclovin/jizzjazz/pkg/hex"
 	"github.com/maclovin/jizzjazz/pkg/html"
+	"github.com/maclovin/jizzjazz/pkg/morse"
 	"github.com/maclovin/jizzjazz/pkg/octal"
+	"github.com/maclovin/jizzjazz/pkg/punycode"
+	"github.com/maclovin/jizzjazz/pkg/unicode"
 	"github.com/maclovin/jizzjazz/pkg/url"
 )
 
 func main() {
-	method := flag.String("m", "", "Method of decoding: HTML, ASCII, HEX, Binary, URL, Octal, Base64, GZIP")
-	indexRange := flag.String("i", "", "Index range for decoding, e.g., 2:5, :3, 4:")
+	method := flag.String("m", "", "Allowed Reverse Encoding/Transformation Methods: html, url, ascii, hex, gzip, unicode, etc... (-h to see the full methods list)")
+	indexRange := flag.String("i", "", "Index range for Encode/Transform, e.g., 2:5, :3, 4:")
+	help := flag.Bool("h", false, "Show all the methods and usage")
 
 	flag.Parse()
 
-	if *method == "" {
-		fmt.Fprintln(os.Stderr, "Please specify a decoding method")
+	if *method == "" || *help {
+		fmt.Printf("%sUsage%s\n$ echo \"YOUR STRING CONTENT\" | ./jizz -m [METHOD]\n", shared.BoldFont, shared.ResetFont)
+		fmt.Printf("\n%sExample%s\n$ echo \"48656c6c6f20576f726c640a\" | ./jizz -m hex\n$ Hello World\n", shared.BoldFont, shared.ResetFont)
+
+		showMethodsList()
+
 		return
 	}
 
@@ -42,6 +55,29 @@ func main() {
 	}
 
 	fmt.Print(processedInput)
+}
+
+func showMethodsList() {
+	shared.PrintTable(
+		[]string{"Method", "Type"},
+		[][]string{
+			{"html", "Encoding"},
+			{"ascii", "Encoding"},
+			{"hex", "Encoding"},
+			{"binary", "Encoding"},
+			{"url", "Encoding"},
+			{"octal", "Encoding"},
+			{"base32", "Encoding"},
+			{"base45", "Encoding"},
+			{"base64", "Encoding"},
+			{"gzip", "Encoding"},
+			{"ascii85", "Encoding"},
+			{"atbash", "Transformation"},
+			{"morse", "Encoding"},
+			{"punycode", "Encoding"},
+			{"unicode", "Encoding"},
+		},
+	)
 }
 
 func processInputByRange(input, indexRange, method string) (string, error) {
@@ -84,7 +120,23 @@ func decode(input, method string) string {
 		return jjB64.Decode(input)
 	case "gzip":
 		return jjGzip.Decode(input)
+	case "ascii85":
+		return jjAscii85.Decode(input)
+	case "atbash":
+		return jjAtbash.Decode(input)
+	case "base32":
+		return jjB32.Decode(input)
+	case "base45":
+		return jjB45.Decode(input)
+	case "morse":
+		return jjMorse.Decode(input)
+	case "punycode":
+		return jjPunycode.Decode(input)
+	case "unicode":
+		return jjUnicode.Decode(input)
+
 	default:
+		showMethodsList()
 		return input
 	}
 }
